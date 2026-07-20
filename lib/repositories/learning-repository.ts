@@ -16,8 +16,9 @@ export async function getTextbookOutline(client: LearningClient) {
 }
 
 export async function getLesson(client: LearningClient, slug: string) {
-  const { data: lesson, error } = await client.from("lessons").select("*").eq("slug", slug).single();
+  const { data: lessonData, error } = await client.from("lessons").select("*").eq("slug", slug).single();
   if (error) throw error;
+  const lesson = lessonData as Database["public"]["Tables"]["lessons"]["Row"];
   const { data: sections, error: sectionError } = await client.from("lesson_sections").select("*").eq("lesson_id", lesson.id).order("position");
   if (sectionError) throw sectionError;
   return { lesson, sections };
