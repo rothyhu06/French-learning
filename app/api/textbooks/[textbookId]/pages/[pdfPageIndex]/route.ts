@@ -2,6 +2,7 @@ import { renderTextbookPage } from "@/lib/textbook-files";
 import { resolveTextbookPageRequest } from "@/lib/textbook-page-request";
 
 export const dynamic="force-dynamic";
+export const runtime="nodejs";
 export async function GET(_request:Request,{params}:{params:Promise<{textbookId:string;pdfPageIndex:string}>}){
   const {textbookId,pdfPageIndex:raw}=await params; const pdfPageIndex=Number(raw);
   if(!Number.isInteger(pdfPageIndex)) return Response.json({error:"Invalid page index"},{status:400});

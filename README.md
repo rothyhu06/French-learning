@@ -3,6 +3,8 @@
 > A textbook-grounded French learning system for structured, long-term study.
 > 一套围绕真实教材构建、适合长期使用的法语学习系统。
 
+[🌐 在线体验 Live Demo](https://french-learning-zeta.vercel.app) · [📚 教材目录](https://french-learning-zeta.vercel.app/courses) · [🔍 教材搜索](https://french-learning-zeta.vercel.app/search)
+
 French Learning OS 不是普通课程网站，也不是让 AI 随机生成内容的聊天机器人。它尝试把教材、学习管理、检索、复习与 AI 辅助整合到同一个学习空间中。
 
 核心原则只有三条：
@@ -126,7 +128,7 @@ Textbook
 - Tailwind CSS
 - Zustand
 - Supabase / PostgreSQL
-- Vinext / Cloudflare-compatible runtime
+- Next.js Node.js runtime / Vercel
 - Web Speech API（计划中）
 
 ## Project status｜开发状态
