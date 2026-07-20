@@ -1,382 +1,211 @@
-🇫🇷 French Learning OS｜法语学习操作系统
+# 🇫🇷 French Learning OS
 
-A structured, AI-powered French learning platform built around real textbooks.
-一个围绕真实教材构建的 AI 驱动法语学习平台。
+> A textbook-grounded French learning system for structured, long-term study.
+> 一套围绕真实教材构建、适合长期使用的法语学习系统。
 
-⸻
+French Learning OS 不是普通课程网站，也不是让 AI 随机生成内容的聊天机器人。它尝试把教材、学习管理、检索、复习与 AI 辅助整合到同一个学习空间中。
 
-📖 Overview｜项目简介
+核心原则只有三条：
 
-English
+- **教材决定学什么**：课程结构、词汇、语法和练习必须对应真实教材。
+- **系统管理怎么学**：安排学习任务、记录进度、管理词汇与错题。
+- **AI 负责辅助学习**：在当前 Lesson、语法和词汇范围内讲解、陪练与反馈，而不是取代教材。
 
-French Learning OS is a personal language learning platform designed for long-term French study.
+## Why this project?
 
-Unlike traditional AI chatbots, this project separates learning into three layers:
+PDF 教材内容可靠，却不方便检索、导航和长期记录；通用 AI 灵活，却容易脱离课程体系；传统学习网站又很难适配个人教材。
 
-* Textbook → defines what to learn
-* Learning System → manages how to learn
-* AI Tutor → explains, practices and evaluates
+French Learning OS 希望把三者的优势组合起来：
 
-The goal is to create a structured, efficient and sustainable learning experience instead of relying on fragmented AI conversations.
+| Textbook 教材 | Learning System 学习系统 | AI Tutor AI 老师 |
+| --- | --- | --- |
+| 决定课程边界 | 管理任务与进度 | 解释与陪练 |
+| 提供原始语境 | 组织词汇与错题 | 根据当前 Lesson 反馈 |
+| 保证内容可追溯 | 安排复习 | 避免超纲授课 |
 
-中文
+最终目标是形成类似 **Duolingo + Notion + Anki + AI Tutor** 的个人法语学习工作台，并逐步扩展至 CEFR A2、B1 和 B2。
 
-French Learning OS 是一个面向长期法语学习的个人学习平台。
+## Current textbook scope｜当前教材范围
 
-它不同于传统 AI 聊天机器人，而是将学习过程拆分为三个层次：
+当前版本以《你好！法语 1》为唯一课程主线，不再使用虚构演示课程。
 
-* 教材（Textbook） —— 决定学习内容
-* 学习系统（Learning System） —— 管理学习过程
-* AI 老师（AI Tutor） —— 负责讲解、陪练与反馈
+已经完成：
 
-项目目标不是做一个聊天机器人，而是打造一套结构化、可持续、可长期使用的法语学习系统。
+- 识别 239 页扫描版 PDF，并确认其没有可靠文字层
+- 提取并核对完整教材目录
+- 建立 PDF 物理页码与教材印刷页码映射
+- 保留并标记开篇重复编排页面
+- 建立 Unité 0 与 Unité 1 的目录、页码关系
+- 试导入 **Leçon 1 — Bienvenue !**
+- 试导入 **Leçon 2 — Qui est-ce ?**
+- 建立 99 个已核对的目录与课程内容块
 
-⸻
+> 当前教材索引只覆盖已完成核对的目录、Unité 0、Unité 1、Leçon 1 和 Leçon 2，并非整本教材。
 
-✨ Core Philosophy｜核心理念
+## Features｜核心能力
 
-English
+### 📖 Real textbook navigation｜真实教材目录
 
-* 📚 Textbook-driven learning
-* 🤖 AI-assisted teaching
-* 📈 Progress-oriented learning
-* 🧠 Long-term knowledge retention
+- 按教材原有的 Unité、Leçon、Savoir-faire、Évaluation 和 Annexes 展示
+- 支持多层级折叠导航
+- 显示教材印刷页码与 PDF 页码
+- 未完成内容解析的课程会明确标记，不生成替代内容
 
-中文
+### 🧭 Learning mode｜学习模式
 
-* 📚 以教材为核心，而不是 AI 随机生成课程
-* 🤖 AI 作为老师，而不是课程本身
-* 📈 重视学习进度管理
-* 🧠 注重长期知识积累与复习
+Lesson 页面根据教材实际内容动态展示：
 
-⸻
+- 学习目标
+- 对话与课文
+- 词汇与重点表达
+- 语法
+- 发音与交际
+- 练习与注释
 
-🚀 Features｜核心功能
+教材没有的板块不会显示空模块。每个内容块都保留页面、来源、提取方式与核对状态。
 
-📖 Structured Courses｜结构化课程
+### 📚 Textbook mode｜教材模式
 
-English
+- 从本机私有缓存按页读取教材页面
+- 自动定位当前 Lesson 对应页码
+- 支持上一页、下一页、缩放和页码跳转
+- 同时显示教材印刷页码与 PDF 页码
+- 原始 PDF 不进入 `public` 目录，也不提供公开下载地址
 
-* Textbook hierarchy
-* Unit → Lesson → Section navigation
-* Learning objectives
-* Vocabulary
-* Grammar
-* Dialogues
-* Exercises
-* Cultural notes
+当前可以精确定位到教材页面；基于 `source_bbox` 的原文矩形高亮仍在后续计划中。
 
-中文
+### 🔍 Textbook search｜教材检索
 
-* 教材目录导航
-* Unit → Lesson → Section 多层级课程
-* 学习目标
-* 单词整理
-* 语法讲解
-* 对话内容
-* 练习题
-* 文化补充
+第一版搜索覆盖已经人工核对的内容，支持：
 
-⸻
+- 法语单词、短语和完整句子
+- 中文释义与中文课程描述
+- 对话、语法、例句与练习
+- Unit / Lesson 标题
+- 教材印刷页码
+- 法语重音符号与大小写兼容，例如 `etre` 可以匹配 `être`
 
-🔍 Textbook Search｜教材检索
+搜索结果可以跳转到结构化学习内容，或定位到对应教材页面。URL 会保存 Lesson、Section、内容块与 PDF 页索引，刷新后仍能保持位置。
 
-English
+### 🧠 Learning systems｜学习系统
 
-Search by:
+项目已经预留词汇、错题、复习、学习进度和会话历史的数据结构。个人数据持久化、间隔复习和完整统计将在教材结构验证稳定后接入。
 
-* French words
-* Chinese translations
-* Expressions
-* Grammar
-* Lesson titles
-* Example sentences
-* Page numbers
+### 🤖 AI Tutor｜AI 法语老师（计划中）
 
-Every result links back to the original textbook.
+未来将提供语法、口语、写作、翻译和考试老师。AI 必须知道用户当前的 Lesson、语法、词汇和 CEFR 水平，并限制在教材范围内辅助学习。
 
-中文
+## Traceability｜教材内容溯源
 
-支持检索：
+网站内容与教材原文通过统一来源模型关联：
 
-* 法语单词
-* 中文释义
-* 常用表达
-* 语法知识点
-* Lesson 标题
-* 教材例句
-* 教材页码
-
-所有搜索结果都能够定位回教材原文。
-
-⸻
-
-📚 Textbook Mode｜教材模式
-
-English
-
-* Original PDF pages
-* Page navigation
-* Page mapping
-* Lesson positioning
-* Source highlighting
-
-中文
-
-* 教材原始 PDF 浏览
-* 页码跳转
-* PDF 页码与教材页码映射
-* Lesson 自动定位
-* 原文高亮定位
-
-⸻
-
-📝 Learning Mode｜学习模式
-
-English
-
-* Vocabulary
-* Grammar
-* Exercises
-* Notes
-* Learning progress
-
-中文
-
-* 单词学习
-* 语法学习
-* 练习系统
-* 学习笔记
-* 学习进度
-
-⸻
-
-🤖 AI Tutor *(Coming Soon)*｜AI 法语老师（开发中）
-
-English
-
-* Grammar Tutor
-* Speaking Coach
-* Writing Correction
-* Translation Assistant
-* Conversation Practice
-* Exam Preparation
-
-中文
-
-* AI 语法老师
-* AI 口语陪练
-* AI 写作批改
-* AI 翻译助手
-* AI 场景对话
-* AI 考试辅导
-
-AI 将始终围绕当前 Lesson 和学习进度进行辅助，而不会脱离教材自行授课。
-
-⸻
-
-📚 Vocabulary System｜词汇系统
-
-English
-
-Each vocabulary item stores:
-
-* French
-* Chinese
-* Part of speech
-* Gender
-* Plural
-* Example sentence
-* Lesson source
-* Review schedule
-* Mastery level
-
-中文
-
-每个单词包含：
-
-* 法语
-* 中文释义
-* 词性
-* 阴阳性
-* 复数形式
-* 例句
-* 来源课程
-* 复习计划
-* 掌握程度
-
-⸻
-
-🔄 Review System｜复习系统
-
-English
-
-* Spaced repetition
-* Flashcards
-* Mistake review
-* Daily review tasks
-
-中文
-
-* 间隔重复算法
-* 单词卡片
-* 错题本
-* 每日复习任务
-
-⸻
-
-📊 Learning Analytics｜学习数据
-
-English
-
-Track:
-
-* Study streak
-* Total study time
-* Vocabulary mastered
-* Lesson completion
-* Learning heatmap
-* Weak knowledge points
-
-中文
-
-记录：
-
-* 连续学习天数
-* 累计学习时长
-* 已掌握单词
-* 课程完成率
-* 学习热力图
-* 薄弱知识点分析
-
-⸻
-
-🛠 Tech Stack｜技术栈
-
-Frontend｜前端
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* App Router
-
-State Management｜状态管理
-
-* Zustand
-
-Database｜数据库
-
-* Supabase
-* PostgreSQL
-
-AI
-
-* Gemini API (Planned)
-* Web Speech API (Planned)
-
-⸻
-
-🏗 Architecture｜系统架构
-
-                 Textbook
-                   教材
-                    │
-                    ▼
-      Structured Learning System
-          结构化学习系统
-                    │
-      ┌─────────────┼─────────────┐
-      ▼             ▼             ▼
-   Lessons      Vocabulary     Grammar
-    课程            单词          语法
-                    │
-                    ▼
-          Practice & Review
-             练习与复习
-                    │
-                    ▼
-                AI Tutor
-               AI 法语老师
-                    │
-                    ▼
-          Learning Analytics
-              学习数据分析
-
-⸻
-
-🗺 Roadmap｜开发计划
-
-Phase 1｜第一阶段
-
-* ✅ Project architecture｜项目架构
-* ✅ Database design｜数据库设计
-* ⏳ Textbook parser｜教材解析
-* ⏳ Course navigation｜课程导航
-* ⏳ Dashboard｜学习首页
-
-Phase 2｜第二阶段
-
-* ⏳ Vocabulary system｜词汇系统
-* ⏳ Review system｜复习系统
-* ⏳ Lesson pages｜课程页面
-* ⏳ Textbook mode｜教材模式
-* ⏳ Search engine｜教材搜索
-
-Phase 3｜第三阶段
-
-* ⏳ AI Tutor｜AI 老师
-* ⏳ Speaking practice｜口语训练
-* ⏳ Writing correction｜写作批改
-* ⏳ Conversation mode｜AI 对话
-
-Phase 4｜第四阶段
-
-* ⏳ Mobile optimization｜移动端优化
-* ⏳ Progress synchronization｜学习同步
-* ⏳ Multi-textbook support｜多教材支持
-* ⏳ CEFR A1 → B2 Learning Path｜CEFR A1–B2 学习路径
-
-⸻
-
-🚧 Current Status｜当前状态
-
-English
-
-This project is under active development.
-
-The current version focuses on building a structured learning platform based on 《你好！法语 1》, including textbook parsing, page mapping, lesson management, search indexing and future AI-assisted learning.
-
-中文
-
-项目正在持续开发中。
-
-当前版本重点围绕 《你好！法语 1》 构建完整的教材解析、课程管理、教材定位、搜索索引以及后续 AI 辅助学习能力。
-
-⸻
-
-🎯 Vision｜项目愿景
-
-English
-
-The long-term vision is to build a complete French Learning Operating System, integrating structured courses, textbook indexing, AI tutoring, spaced repetition, knowledge management and learning analytics into one unified learning experience.
-
-中文
-
-项目最终目标是打造一套完整的 法语学习操作系统（French Learning Operating System），将教材、课程、AI 老师、知识管理、复习系统和学习分析整合到同一个平台中，让法语学习更加系统、高效、可持续。
-
-⸻
-
-📄 License｜许可证
-
-English
-
-This repository is intended for personal educational use.
-
-Original textbook content remains the intellectual property of its respective publisher and is not redistributed through this repository. Only the application code and user-generated learning data are included.
-
-中文
-
-本项目仅用于个人学习与教育用途。
-
-教材版权归原出版社及作者所有，本仓库不包含教材原始内容，也不会分发教材文件。仓库仅包含项目源码及用户自行生成的学习数据。
+```text
+Textbook
+  ├── Textbook Page
+  │     └── Source Block
+  ├── Unit / Lesson / Section
+  └── Structured Content
+          ↕ content_source_links
+      Source Block
+```
+
+核心数据包括：
+
+- `textbook_pages`：PDF 索引、印刷页码、重复页与所属课程
+- `source_blocks`：教材原始片段、语言、内容类型和核对状态
+- `content_source_links`：结构化内容与教材来源的多对多关联
+- `textbook_search_index`：标准化文本、无重音文本与混合语言索引
+
+视觉或 AI 辅助提取的内容不会自动视为准确内容；只有经过核对的 `verified` 内容默认进入正式搜索结果。
+
+## Tech stack｜技术栈
+
+- Next.js / App Router
+- React
+- TypeScript（strict）
+- Tailwind CSS
+- Zustand
+- Supabase / PostgreSQL
+- Vinext / Cloudflare-compatible runtime
+- Web Speech API（计划中）
+
+## Project status｜开发状态
+
+| 模块 | 状态 |
+| --- | --- |
+| 项目架构与基础 UI | ✅ 已完成 |
+| 真实教材完整目录 | ✅ 已核对 |
+| 页码映射与重复页处理 | ✅ 已完成试验范围 |
+| Leçon 1–2 结构化试导入 | ✅ 已完成 |
+| 教材模式 | ✅ 基础版本可用 |
+| 有限范围教材搜索 | ✅ 基础版本可用 |
+| 搜索跳转与页级定位 | ✅ 已完成 |
+| PDF 坐标级高亮 | ⏳ 待补充 bbox |
+| Supabase 远端迁移与种子执行 | ⏳ SQL 已准备 |
+| 登录与个人数据持久化 | ⏳ 计划中 |
+| 词汇复习与错题保存 | ⏳ 计划中 |
+| AI Tutor 与语音训练 | ⏳ 计划中 |
+| 剩余 Lesson 批量导入 | ⏳ 等待分批核对 |
+
+## Local development｜本地运行
+
+要求 Node.js `>= 22.13.0`。
+
+```bash
+npm install
+cp .env.example .env.local
+npm run textbook:prepare
+npm run dev
+```
+
+`.env.local` 至少需要配置：
+
+```dotenv
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+TEXTBOOK_BONJOUR_FRANCAIS_1_PATH=/absolute/path/to/你好！法语1.pdf
+PDFTOPPM_BIN=/absolute/path/to/pdftoppm
+```
+
+`npm run textbook:prepare` 只预渲染当前批准范围内的教材页面，并写入被 Git 忽略的 `.private` 目录。
+
+常用命令：
+
+```bash
+npm test                         # 运行数据、迁移和路由测试
+npm run lint                     # ESLint
+npx tsc --noEmit                 # TypeScript 严格检查
+npm run build                    # 生产构建
+npm run textbook:seed:generate   # 重新生成试导入 SQL
+```
+
+Supabase SQL 位于：
+
+- `supabase/migrations/202607150001_initial_learning_schema.sql`
+- `supabase/migrations/202607200001_textbook_grounding.sql`
+- `supabase/seed/bonjour-francais-1-trial.sql`
+
+## Roadmap｜路线图
+
+1. 对 Leçon 1–2 进行逐题、逐选项复核，并补充可靠 bbox
+2. 执行 Supabase 迁移和试导入，验证真实查询链路
+3. 分批核对并导入《你好！法语 1》剩余 Lesson
+4. 接入登录、用户隔离、进度、收藏、词汇和错题持久化
+5. 加入教材受限的 AI Tutor 与 Web Speech API
+6. 扩展至《你好！法语 2》及 A2–B2 教材
+
+## Privacy and copyright｜隐私与版权
+
+本项目用于个人学习与技术研究。
+
+- 教材原始 PDF 和预渲染页面不会提交到仓库或公开存储桶
+- 仓库只保留课程索引、数据模型，以及当前试验范围内用于核对和检索的有限教材片段
+- 教材版权归原作者及出版社所有
+- 使用者应自行合法取得教材，并避免公开传播教材文件或大段原文
+- 用户笔记、收藏、错题、学习进度与 AI 内容将与教材来源数据分开保存
+
+---
+
+**French Learning OS** aims to make textbook-based French learning searchable, traceable and sustainable—without allowing AI to replace the curriculum.
+
+让教材决定方向，让系统管理过程，让 AI 真正成为老师。
