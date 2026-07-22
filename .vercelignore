@@ -1,0 +1,8 @@
+# Never send private textbook assets or local extraction artifacts to Vercel.
+.private/
+tmp/
+*.pdf
+*.epub
+*.docx
+.env*
+coverage/
