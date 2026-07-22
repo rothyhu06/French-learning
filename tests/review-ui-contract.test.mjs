@@ -10,6 +10,10 @@ test("vocabulary and mistake clients expose review actions", async () => {
   for (const label of ["收藏", "掌握度", "认识", "不认识"]) assert.match(vocabulary, new RegExp(label));
   for (const label of ["重新练习", "答对", "答错", "连续答对 2 次"]) assert.match(mistakes, new RegExp(label));
   assert.doesNotMatch(vocabulary + mistakes, /localStorage/);
+  assert.match(mistakes, /evaluationMode === "automatic"/);
+  assert.match(mistakes, /acceptedAnswers/);
+  assert.match(mistakes, /提交答案/);
+  assert.match(mistakes, /手动标记完成/);
 });
 
 test("backup panel previews imports and confirms destructive actions", async () => {

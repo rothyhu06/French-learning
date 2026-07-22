@@ -18,11 +18,11 @@ const front: Array<[number,number|null,string,boolean,string|null,string|null]> 
 ];
 
 const unitForPrinted = (printed:number) => printed <= 18 ? "unit-0" : printed <= 36 ? "unit-1" : null;
-const lessonForPrinted = (printed:number) => printed >=20 && printed<=23 ? "lesson-1" : printed>=24&&printed<=27 ? "lesson-2" : null;
+const lessonForPrinted = (printed:number) => printed >=20 && printed<=23 ? "lesson-1" : printed>=24&&printed<=27 ? "lesson-2" : printed>=28&&printed<=31 ? "lesson-3" : printed>=32&&printed<=35 ? "lesson-4" : null;
 
 export const textbookPages: TextbookPage[] = [
   ...front.map(([pdfPageIndex,printedPageNumber,pageLabel,isDuplicate,duplicateOfPageId,notes])=>({id:`bf1-page-${pdfPageIndex}`,textbookId:TEXTBOOK_ID,pdfPageIndex,pdfPageNumber:pdfPageIndex+1,printedPageNumber,pageType:"front_matter" as const,unitId:null,lessonId:null,pageLabel,isDuplicate,duplicateOfPageId,verificationStatus:"verified" as const,notes})),
-  ...Array.from({length:23},(_,offset)=>{ const pdfPageIndex=offset+12; const printedPageNumber=offset+5; const unitId=unitForPrinted(printedPageNumber); const lessonId=lessonForPrinted(printedPageNumber); return {id:`bf1-page-${pdfPageIndex}`,textbookId:TEXTBOOK_ID,pdfPageIndex,pdfPageNumber:pdfPageIndex+1,printedPageNumber,pageType:(printedPageNumber===5||printedPageNumber===19?"unit_cover":lessonId?"lesson":"lesson") as TextbookPage["pageType"],unitId,lessonId,pageLabel:`教材第 ${printedPageNumber} 页`,isDuplicate:false,duplicateOfPageId:null,verificationStatus:"verified" as const,notes:null};}),
+  ...Array.from({length:31},(_,offset)=>{ const pdfPageIndex=offset+12; const printedPageNumber=offset+5; const unitId=unitForPrinted(printedPageNumber); const lessonId=lessonForPrinted(printedPageNumber); return {id:`bf1-page-${pdfPageIndex}`,textbookId:TEXTBOOK_ID,pdfPageIndex,pdfPageNumber:pdfPageIndex+1,printedPageNumber,pageType:(printedPageNumber===5||printedPageNumber===19?"unit_cover":lessonId?"lesson":"lesson") as TextbookPage["pageType"],unitId,lessonId,pageLabel:`教材第 ${printedPageNumber} 页`,isDuplicate:false,duplicateOfPageId:null,verificationStatus:"verified" as const,notes:null};}),
 ];
 
 export function getTextbookPage(pdfPageIndex:number){ return textbookPages.find(page=>page.pdfPageIndex===pdfPageIndex); }

@@ -10,7 +10,7 @@ if (!pdfPath) throw new Error("TEXTBOOK_BONJOUR_FRANCAIS_1_PATH is required");
 
 const outputDir = join(process.cwd(), ".private", "textbook-pages", "bonjour-francais-1");
 await mkdir(outputDir, { recursive: true });
-for (let pdfPageIndex = 27; pdfPageIndex <= 34; pdfPageIndex += 1) {
+for (let pdfPageIndex = 27; pdfPageIndex <= 42; pdfPageIndex += 1) {
   const pdfPageNumber = pdfPageIndex + 1;
   await run(pdftoppm, [
     "-f", String(pdfPageNumber), "-l", String(pdfPageNumber),
@@ -18,4 +18,4 @@ for (let pdfPageIndex = 27; pdfPageIndex <= 34; pdfPageIndex += 1) {
     join(outputDir, `page-${pdfPageIndex}`),
   ]);
 }
-console.log(`Prepared 8 private textbook pages in ${outputDir}`);
+console.log(`Prepared 16 private textbook pages in ${outputDir}`);

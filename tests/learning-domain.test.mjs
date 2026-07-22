@@ -39,10 +39,8 @@ test("catalog derives stable vocabulary records from verified lesson blocks", ()
   assert.equal(etre?.meaningZh, "是");
   assert.equal(etre?.sourceBlockId, "l1-vocab");
   assert.equal(learningCatalog.lessons[0]?.id, "lesson-1");
-  assert.deepEqual(
-    learningCatalog.lessons.map((lesson) => lesson.vocabularyIds.length > 0),
-    [true, true],
-  );
+  assert.equal(learningCatalog.lessons.length, 4);
+  assert.ok(learningCatalog.lessons.every((lesson) => lesson.vocabularyIds.length > 0));
 });
 
 test("review policy is centralized and explainable", () => {

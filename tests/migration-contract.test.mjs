@@ -15,3 +15,9 @@ test("search and source link constraints cover approved entity types",async()=>{
   for(const type of ["lesson","lesson_section","vocabulary","grammar","exercise","dialogue","expression","culture"]){ assert.ok(sql.includes(`'${type}'`),`missing entity type ${type}`); }
   assert.ok(sql.includes("verification_status = 'verified'"));
 });
+
+test("Leçon 3–4 content kinds extend the existing enum non-destructively", async () => {
+  const sql = await readFile(new URL("../supabase/migrations/202607220001_lecons_3_4_content_kinds.sql", import.meta.url), "utf8");
+  for (const kind of ["text", "image_based_exercise", "answerable_question", "page_instruction", "audio_reference", "writing"]) assert.ok(sql.includes(`'${kind}'`), `missing content kind ${kind}`);
+  assert.equal(/drop\s+table|drop\s+column/i.test(sql), false);
+});

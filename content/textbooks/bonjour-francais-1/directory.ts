@@ -38,7 +38,7 @@ const savoir=[["unit-1",36],["unit-2",54],["unit-3",72],["unit-4",92],["unit-5",
 const parentFor=(printed:number)=>units.find(u=>printed>=u[3]&&printed<=u[4])?.[0]??"unit-0";
 const nextBoundary=(start:number)=>{ const starts=[...lessonDefs.map(l=>l[3]),...savoir.map(s=>s[1]),73,75,93,111,129,131,149,167,185,187].sort((a,b)=>a-b); return (starts.find(n=>n>start)??start+4)-1; };
 export const lessons:TextbookLesson[]=[
-  ...lessonDefs.map((l,i)=>({id:l[0].toLowerCase().replace("leçon ","lesson-").replace("-","-").replace(/\s/g,""),textbookId:TEXTBOOK_ID,chapterId:parentFor(l[3]),kind:"lesson" as const,originalNumber:l[0],titleFr:l[1]||l[0],titleZh:l[2]||null,sourceOrder:11+i,startPrintedPageNumber:l[3],endPrintedPageNumber:nextBoundary(l[3]),startPdfPageIndex:pdfIndex(l[3]),endPdfPageIndex:pdfIndex(nextBoundary(l[3])),contentParsed:["Leçon 1","Leçon 2"].includes(l[0])})),
+  ...lessonDefs.map((l,i)=>({id:l[0].toLowerCase().replace("leçon ","lesson-").replace("-","-").replace(/\s/g,""),textbookId:TEXTBOOK_ID,chapterId:parentFor(l[3]),kind:"lesson" as const,originalNumber:l[0],titleFr:l[1]||l[0],titleZh:l[2]||null,sourceOrder:11+i,startPrintedPageNumber:l[3],endPrintedPageNumber:nextBoundary(l[3]),startPdfPageIndex:pdfIndex(l[3]),endPdfPageIndex:pdfIndex(nextBoundary(l[3])),contentParsed:["Leçon 1","Leçon 2","Leçon 3","Leçon 4"].includes(l[0])})),
   ...savoir.map((s,i)=>({id:`savoir-faire-${i+1}`,textbookId:TEXTBOOK_ID,chapterId:s[0],kind:"savoir_faire" as const,originalNumber:"Savoir-faire",titleFr:"Savoir-faire",titleZh:"学以致用",sourceOrder:50+i*10,startPrintedPageNumber:s[1],endPrintedPageNumber:s[1],startPdfPageIndex:pdfIndex(s[1]),endPdfPageIndex:pdfIndex(s[1]),contentParsed:false})),
 ];
 

@@ -1,0 +1,45 @@
+export const lecons34IngestionManifest = {
+  extractionScope: "small_range_visual_review",
+  reviewedAt: "2026-07-22T00:00:00.000Z",
+  source: "《你好！法语 1》扫描版 PDF",
+  lessons: [
+    {
+      lessonId: "lesson-3",
+      unitId: "unit-1",
+      titleFr: "Ça va bien ?",
+      titleZh: "你好吗？",
+      printedPages: [28, 29, 30, 31],
+      pdfPageIndices: [35, 36, 37, 38],
+      observedStructures: ["dialogue", "notes", "vocabulary", "discovery", "grammar_table", "expressions", "closed_exercise", "image_audio_exercise", "speaking", "pronunciation"],
+      crossPageContent: [],
+      mediaReferences: ["audio pistes 21–22", "audio piste 23", "audio piste 24", "audio piste 25", "DVD-Rom audio pistes 14 à 17"],
+    },
+    {
+      lessonId: "lesson-4",
+      unitId: "unit-1",
+      titleFr: "Correspondants",
+      titleZh: "寻找笔友",
+      printedPages: [32, 33, 34, 35],
+      pdfPageIndices: [39, 40, 41, 42],
+      observedStructures: ["profile_texts", "images", "notes", "vocabulary", "reading", "matching_exercise", "speaking", "email_writing", "culture", "video_reference"],
+      crossPageContent: ["五份 correspondants 个人资料及词汇表", "La Francophonie"],
+      mediaReferences: ["VIDÉO — Reportage : Paris"],
+    },
+  ],
+  pages: Array.from({ length: 8 }, (_, offset) => ({
+    textbookPageId: `bf1-page-${35 + offset}`,
+    pdfPageIndex: 35 + offset,
+    pdfPageNumber: 36 + offset,
+    printedPageNumber: 28 + offset,
+    lessonId: offset < 4 ? "lesson-3" : "lesson-4",
+    isDuplicate: false,
+    alignmentStatus: "verified" as const,
+  })),
+  pendingReview: [
+    {
+      sourceBlockId: "l4-culture-b",
+      printedPageNumber: 35,
+      reason: "已核对页面范围、标题与关键事实；未把长篇文化原文完整转录进公开仓库。",
+    },
+  ],
+} as const;

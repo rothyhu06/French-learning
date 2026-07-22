@@ -51,3 +51,17 @@
 ### 未来 Supabase 迁移约定
 
 首次登录时分别读取本地与云端状态，并向用户提供“本地覆盖云端”“云端覆盖本地”“合并”三种选择。合并规则复用 Repository 的稳定实体 ID 与时间戳；云端成功写入后仍保留本地缓存。所有远端表必须以 `auth.uid()` 隔离，不创建共享固定用户，也不绕过 `auth.users` 外键。
+
+## 2026-07-22 - Leçon 3–4 教材内容扩展
+
+- 对 PDF 索引 35–42（PDF 页码 36–43、教材印刷页 28–35）进行 8 页小范围视觉核对；未执行整书 OCR。
+- 确认 Leçon 3 `Ça va bien ? / 你好吗？` 与 Leçon 4 `Correspondants / 寻找笔友` 均属于 Unité 1 `Rencontres`，页面无重复、错位或固定偏移异常。
+- Leçon 3：9 个 Section、20 个 verified 块、32 条词汇、4 个语法块、3 个对话块、4 个结构化练习。
+- Leçon 4：8 个 Section、16 个 verified 块、1 个 pending_review 块、34 条词汇、6 个课文材料块、2 个结构化练习。
+- 新增内容类型：`text`、`image_based_exercise`、`answerable_question`、`page_instruction`、`audio_reference`、`writing`；通过非破坏性枚举迁移复用现有 `lesson_sections`。
+- 词汇目录开始保留词性、阴阳性、复数占位和教材页码；练习明确区分 automatic / manual 与 closed / audio / image / open。
+- Leçon 3 的两项封闭题可在线提交；听力、图片、配对和开放写作题不伪造答案，只能手动完成。
+- 教材搜索扩展到 Leçon 1–4，新增 36 个正式 verified 检索块；Leçon 4 第 35 页长篇文化内容仅保留定位与摘要，状态为 pending_review，不进入正式搜索。
+- 私有教材页缓存范围从 8 页扩展到 16 页；Leçon 3–4 页面与索引 35、42 的受控接口均返回 200。
+- 学习目录由 `learningCatalog.lessons` 动态排序；测试确认 Lesson 2 → 3 → 4，不在服务中写死 ID。
+- 自动验证：42 项测试通过，TypeScript、ESLint 和生产构建通过。

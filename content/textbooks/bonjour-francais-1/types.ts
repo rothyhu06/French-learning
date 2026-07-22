@@ -23,5 +23,5 @@ export interface TextbookLesson {
   endPrintedPageNumber: number; startPdfPageIndex: number; endPdfPageIndex: number; contentParsed: boolean;
 }
 
-export type SourceBlockType = "learning_objectives"|"dialogue"|"notes"|"vocabulary"|"discovery"|"grammar"|"expressions"|"exercises"|"speaking"|"pronunciation"|"culture"|"page_heading";
+export type SourceBlockType = "learning_objectives"|"dialogue"|"text"|"notes"|"vocabulary"|"discovery"|"grammar"|"expressions"|"exercises"|"image_based_exercise"|"answerable_question"|"page_instruction"|"audio_reference"|"speaking"|"writing"|"pronunciation"|"culture"|"page_heading";
 export interface SourceBlock { id:string; textbookId:string; textbookPageId:string; lessonId:string|null; sectionId:string|null; pdfPageIndex:number; printedPageNumber:number|null; sourceBbox:{x:number;y:number;width:number;height:number}|null; blockType:SourceBlockType; originalText:string; language:"fr"|"zh"|"mixed"; sourceOrder:number; extractionMethod:ExtractionMethod; verificationStatus:VerificationStatus; verifiedAt:string|null; notes:string|null; }
