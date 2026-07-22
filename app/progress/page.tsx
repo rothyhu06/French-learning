@@ -1,2 +1,3 @@
 import { AppShell } from "@/components/app-shell";
-export default function ProgressPage(){return <AppShell active="/progress"><div className="page"><div className="page-title"><div><p className="eyebrow">PROGRESS</p><h1>学习进度</h1><p>尚未启用个人进度持久化。</p></div></div><section className="progress-hero"><div><span>教材准备进度</span><h2>真实课程结构已开始建立</h2><p>完整目录已核对；Leçon 1–2 已进入试导入范围。个人学习统计将在 Auth 阶段开始记录。</p><div className="wide-progress"><i style={{width:"5%"}}/></div><small>2 / 40 个 Leçon（含 Unité 0）已试导入</small></div></section></div></AppShell>}
+import { ProgressClient } from "@/components/progress-client";
+export default function ProgressPage(){return <AppShell active="/progress"><div className="page"><div className="page-title"><div><p className="eyebrow">PROGRESS</p><h1>学习进度</h1><p>课程、词汇、练习与每日统计的浏览器本地档案。</p></div></div><ProgressClient/></div></AppShell>}

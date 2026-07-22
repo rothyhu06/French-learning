@@ -1,0 +1,15 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { learningCatalog } from "@/lib/learning/catalog";
+import { useLearningStore } from "@/lib/learning/store";
+import type { MasteryLevel } from "@/lib/learning/types";
+
+export function VocabularyClient() {
+  const { hydrated, loading, state, toggleVocabularyFavorite, reviewVocabulary } = useLearningStore();
+  const [query, setQuery] = useState(""); const [filter, setFilter] = useState("all");
+  const words = useMemo(() => learningCatalog.vocabulary.filter((word) => { const progress = state?.vocabularyProgress[word.id]; return `${word.term} ${word.meaningZh}`.toLowerCase().includes(query.toLowerCase()) && (filter === "all" || (filter === "favorite" && progress?.isFavorite) || (filter === "due" && progress?.nextReviewAt && progress.nextReviewAt <= new Date().toISOString()) || (filter === "mastered" && progress?.status === "mastered")); }), [filter, query, state]);
+  if (!hydrated || !state) return <div className="learning-loading">正在读取单词学习记录…</div>;
+  return <><div className="local-data-notice"><strong>浏览器本地模式</strong><span>收藏、掌握度和复习时间会保存在当前浏览器。</span></div><div className="vocab-toolbar"><input aria-label="搜索单词" placeholder="搜索法语或中文" value={query} onChange={(event) => setQuery(event.target.value)}/><select aria-label="筛选单词" value={filter} onChange={(event) => setFilter(event.target.value)}><option value="all">全部</option><option value="favorite">已收藏</option><option value="due">待复习</option><option value="mastered">已掌握</option></select></div><div className="vocabulary-grid">{words.map((word) => { const progress = state.vocabularyProgress[word.id]; const level = progress?.masteryLevel ?? 0; return <article className="vocabulary-card" key={word.id}><div><small>{word.lessonId === "lesson-1" ? "LEÇON 1" : "LEÇON 2"}</small><h2>{word.term}</h2><p>{word.meaningZh}</p></div><button className={progress?.isFavorite ? "favorite active" : "favorite"} disabled={loading} onClick={() => void toggleVocabularyFavorite(word.id, word.lessonId)}>{progress?.isFavorite ? "★ 已收藏" : "☆ 收藏"}</button><label>掌握度 <select value={level} onChange={(event) => void reviewVocabulary(word.id, word.lessonId, Number(event.target.value) as MasteryLevel, true)}>{[0,1,2,3,4,5].map((value) => <option value={value} key={value}>{value}</option>)}</select></label><div className="review-actions"><button disabled={loading} onClick={() => void reviewVocabulary(word.id, word.lessonId, Math.max(1, level) as MasteryLevel, false)}>不认识</button><button disabled={loading} onClick={() => void reviewVocabulary(word.id, word.lessonId, Math.min(5, Math.max(3, level + 1)) as MasteryLevel, true)}>认识</button></div><footer><span>{progress?.nextReviewAt ? `下次复习 ${progress.nextReviewAt.slice(0,10)}` : "尚未加入复习"}</span><Link href={`/courses/${word.lessonId}?sourceBlockId=${word.sourceBlockId}`}>教材来源 ↗</Link></footer></article>; })}</div></>;
+}

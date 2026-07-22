@@ -34,3 +34,20 @@
 - 单元测试：9/9 通过。
 - TypeScript 严格检查、ESLint、生产构建通过。
 - 浏览器验证：教材 JPEG 受控接口返回 200；页码搜索跳转到 Leçon 2 / PDF 索引 31；390×844 视口无横向溢出。
+
+## 2026-07-22 - 浏览器本地学习闭环 MVP
+
+- 新增 `UserLearningState` v1 及 Lesson、词汇、练习、错题、学习会话、每日任务和每日统计模型。
+- 新增存储无关的 `LearningRepository`，当前由 `LocalLearningRepository` 实现；只有 Repository 工厂访问浏览器存储。
+- 存储键为 `french-learning-os:learning-state:v1`，包含 schemaVersion、容错解析、版本拒绝、合并/覆盖导入与清空能力。
+- 新增 `LearningService`、`ReviewScheduler`、`DailyTaskGenerator`、`StudySessionTracker`，统一编排 Lesson 完成后的进度、时长、词汇队列、任务与统计更新。
+- Dashboard 改为 hydration-safe 的真实学习数据面板；Lesson 增加开始、继续、完成、时长、最近学习和返回上次内容块。
+- 单词页面支持搜索、筛选、收藏、掌握度和复习；错题页面支持教材练习自评和连续两次答对掌握规则。
+- 学习进度页面新增 JSON 导出、导入摘要、合并、覆盖和二次确认清空。
+- 当前学习数据与教材正文、PDF 页面、搜索索引完全分离；Supabase 适配器保留相同接口，下一阶段按 `auth.uid()` 实现。
+- 自动验证：30/30 测试通过，TypeScript、ESLint 和 Next.js 生产构建通过。
+- 当前会话的浏览器安全策略阻止 localhost 自动交互，因此本轮没有重复执行浏览器端 390×844 视觉验收；响应式规则已实现，部署后仍需进行一次真机/浏览器复核。
+
+### 未来 Supabase 迁移约定
+
+首次登录时分别读取本地与云端状态，并向用户提供“本地覆盖云端”“云端覆盖本地”“合并”三种选择。合并规则复用 Repository 的稳定实体 ID 与时间戳；云端成功写入后仍保留本地缓存。所有远端表必须以 `auth.uid()` 隔离，不创建共享固定用户，也不绕过 `auth.users` 外键。
